@@ -24,15 +24,7 @@ function printGuessTries() {
     } else document.querySelector('h1').textContent = `It took you ${guessTries} tries to guess the number.`
 }
 
-let secretNumber = generateSecretNumber();
-console.log(secretNumber);
-
-let score = 20;
-let highScore = 0;
-
-
-document.querySelector('.check').addEventListener('click', function(){
-
+const gameLogic = function() {
     const guess = Number(document.querySelector('.guess').value);
     console.log(guess, typeof guess);
     guessTries++;
@@ -67,10 +59,9 @@ document.querySelector('.check').addEventListener('click', function(){
             document.querySelector('.score').textContent = 0;
         }
     }
-})
+};
 
-document.querySelector('.again').addEventListener('click', function(){
-
+const resetGame = function () {
     // Reset secret number
 
     secretNumber = generateSecretNumber();
@@ -91,10 +82,24 @@ document.querySelector('.again').addEventListener('click', function(){
     document.querySelector('.hint').textContent = 'Get a hint!';
     document.querySelector('h1').textContent = 'Guess My Number!';
 
-})
+};
 
-document.querySelector('.hint').addEventListener('click', function(){
+const getHint = function() {
     if(secretNumber%2===0){
         document.querySelector('.hint').textContent = 'The number is par.';
     } else document.querySelector('.hint').textContent = 'The number is impar.';
-})
+};
+
+let secretNumber = generateSecretNumber();
+console.log(secretNumber);
+
+let score = 20;
+let highScore = 0;
+
+
+document.querySelector('.check').addEventListener('click', gameLogic);
+
+document.querySelector('.again').addEventListener('click', resetGame);
+    
+document.querySelector('.hint').addEventListener('click', getHint);
+    
